@@ -34,17 +34,31 @@ class Cardmaker {
 		
 		//makes new cards and cords, puts them in an Array	
 		for (i in 0...10) {
-				card1 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
-				card1.displayCard();
+				card1 = new Card((i + 1), "img/cards/kaart" + (i+1) + ".jpg", this);
 				card1.x = arrayX[i];
 				card1.y = 100;
 				arrayCards1[i] = card1;
 	
-				card2 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
-				card2.displayCard();
+				card2 = new Card((i + 1), "img/cards/kaart" + (i+1) + ".jpg", this);
 				card2.x = arrayX[i];
 				card2.y = 200;
 				arrayCards2[i] = card2;
+		}
+		var cardCompare : CardCompare = new CardCompare();
+		for (i in 0...10) {
+			arrayCards1[i].setCompare(cardCompare);
+			arrayCards2[i].setCompare(cardCompare);
+		}
+		displayCards();
+	}
+	
+	public function displayCards(){
+		for(i in 0...arrayCards1.length){
+			arrayCards1[i].displayCard();
+		}
+		
+		for(i in 0...arrayCards2.length){
+			arrayCards2[i].displayCard();
 		}
 	}
 	
@@ -54,5 +68,9 @@ class Cardmaker {
 	
 	public function getArrayCards2(){
 		return arrayCards2;
+	}
+	
+	public function getAllCards(){
+		return arrayCards1.concat(arrayCards2);
 	}
 }
