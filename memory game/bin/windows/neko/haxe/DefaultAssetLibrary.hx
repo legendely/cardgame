@@ -67,6 +67,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		#end
 		
 		#if flash
@@ -77,8 +87,28 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/cards/kaart1.jpg", AssetType.IMAGE);
 		path.set ("img/cards/kaart10.jpg", "img/cards/kaart10.jpg");
 		type.set ("img/cards/kaart10.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart11.jpg", "img/cards/kaart11.jpg");
+		type.set ("img/cards/kaart11.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart12.jpg", "img/cards/kaart12.jpg");
+		type.set ("img/cards/kaart12.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart13.jpg", "img/cards/kaart13.jpg");
+		type.set ("img/cards/kaart13.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart14.jpg", "img/cards/kaart14.jpg");
+		type.set ("img/cards/kaart14.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart15.jpg", "img/cards/kaart15.jpg");
+		type.set ("img/cards/kaart15.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart16.jpg", "img/cards/kaart16.jpg");
+		type.set ("img/cards/kaart16.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart17.jpg", "img/cards/kaart17.jpg");
+		type.set ("img/cards/kaart17.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart18.jpg", "img/cards/kaart18.jpg");
+		type.set ("img/cards/kaart18.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart19.jpg", "img/cards/kaart19.jpg");
+		type.set ("img/cards/kaart19.jpg", AssetType.IMAGE);
 		path.set ("img/cards/kaart2.jpg", "img/cards/kaart2.jpg");
 		type.set ("img/cards/kaart2.jpg", AssetType.IMAGE);
+		path.set ("img/cards/kaart20.jpg", "img/cards/kaart20.jpg");
+		type.set ("img/cards/kaart20.jpg", AssetType.IMAGE);
 		path.set ("img/cards/kaart3.jpg", "img/cards/kaart3.jpg");
 		type.set ("img/cards/kaart3.jpg", AssetType.IMAGE);
 		path.set ("img/cards/kaart4.jpg", "img/cards/kaart4.jpg");
@@ -115,7 +145,37 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "img/cards/kaart10.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart11.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart12.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart13.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart14.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart15.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart16.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart17.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart18.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart19.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "img/cards/kaart2.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart20.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "img/cards/kaart3.jpg";
@@ -168,6 +228,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -844,7 +914,27 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
+
+
+
+
 #elseif html5
+
+
+
+
+
+
+
+
+
+
 
 
 

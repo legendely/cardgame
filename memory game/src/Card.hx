@@ -38,7 +38,7 @@ class Card extends Sprite {
 			var card:Bitmap = new Bitmap( cardData );
 			addChild(card);
 		}else {
-			var cardData:BitmapData = Assets.getBitmapData("img/cards/kaart0.jpg");
+			var cardData:BitmapData = Assets.getBitmapData("img/cards/kaartback.jpg");
 			var card:Bitmap = new Bitmap( cardData );
 			addChild(card);
 		}	
