@@ -29,8 +29,6 @@ class Main extends Sprite{
 		cardArray2 = cardMaker.getArrayCards2();
 		
 		for (i in 0...cardArray1.length) {
-			cardArray1[i].addEventListener(MouseEvent.CLICK, cardArray1[i].makeActionTrue);
-			cardArray2[i].addEventListener(MouseEvent.CLICK, cardArray2[i].makeActionTrue);
 			box.addChild(cardArray1[i]);
 			box.addChild(cardArray2[i]);
 		}

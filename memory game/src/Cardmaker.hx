@@ -26,22 +26,21 @@ class Cardmaker {
 		
 		for (i in 0...10) {
 			// +1 is because of the card names start with 1 and not 0.
-			arrayPath[i] = "img/cards/kaart" + i+1 + ".jpg";
 			arrayX[i] = i*100+100;
 		}
 	
 
-	
+		
+		
 		//makes new cards and cords, puts them in an Array	
 		for (i in 0...10) {
-		
-				card1 = new Card(i + 1, arrayPath[i]);
+				card1 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
 				card1.displayCard();
 				card1.x = arrayX[i];
 				card1.y = 100;
 				arrayCards1[i] = card1;
 	
-				card2 = new Card(i + 1, arrayPath[i]);
+				card2 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
 				card2.displayCard();
 				card2.x = arrayX[i];
 				card2.y = 200;

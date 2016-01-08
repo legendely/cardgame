@@ -23,11 +23,33 @@ ApplicationMain.create = function() {
 	ApplicationMain.preloader.create(ApplicationMain.config);
 	var urls = [];
 	var types = [];
+	urls.push("img/cards/cards.zip.zip");
+	types.push("BINARY");
 	urls.push("img/cards/kaart1.jpg");
 	types.push("IMAGE");
 	urls.push("img/cards/kaart10.jpg");
 	types.push("IMAGE");
+	urls.push("img/cards/kaart11.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart12.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart13.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart14.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart15.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart16.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart17.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart18.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart19.jpg");
+	types.push("IMAGE");
 	urls.push("img/cards/kaart2.jpg");
+	types.push("IMAGE");
+	urls.push("img/cards/kaart20.jpg");
 	types.push("IMAGE");
 	urls.push("img/cards/kaart3.jpg");
 	types.push("IMAGE");
@@ -47,6 +69,8 @@ ApplicationMain.create = function() {
 	types.push("IMAGE");
 	urls.push("img/cards/set.png");
 	types.push("IMAGE");
+	urls.push("img/openfl.svg");
+	types.push("TEXT");
 	urls.push("img/start.jpg");
 	types.push("IMAGE");
 	if(ApplicationMain.config.assetsPrefix != null) {
@@ -71,7 +95,7 @@ ApplicationMain.init = function() {
 	if(total == 0) ApplicationMain.start();
 };
 ApplicationMain.main = function() {
-	ApplicationMain.config = { build : "31", company : "Marcel Stoepker", file : "memorygame", fps : 60, name : "memory game", orientation : "", packageName : "memorygame", version : "1.0.0", windows : [{ antialiasing : 0, background : 0, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : true, height : 480, parameters : "{}", resizable : true, stencilBuffer : true, title : "memory game", vsync : false, width : 800, x : null, y : null}]};
+	ApplicationMain.config = { build : "450", company : "Marcel Stoepker", file : "memorygame", fps : 60, name : "memory game", orientation : "", packageName : "memorygame", version : "1.0.0", windows : [{ antialiasing : 0, background : 0, borderless : false, depthBuffer : false, display : 0, fullscreen : false, hardware : false, height : 480, parameters : "{}", resizable : true, stencilBuffer : true, title : "memory game", vsync : false, width : 800, x : null, y : null}]};
 };
 ApplicationMain.start = function() {
 	var hasMain = false;
@@ -211,7 +235,7 @@ openfl_events_EventDispatcher.prototype = {
 			listener = list[index];
 			if(listener.useCapture == capture) {
 				listener.callback(event);
-				if(event.__isCancelledNow) break;
+				if(event.__isCanceledNow) break;
 			}
 			if(listener == list[index]) index++;
 		}
@@ -302,14 +326,14 @@ openfl_display_DisplayObject.prototype = $extend(openfl_events_EventDispatcher.p
 	,__broadcast: function(event,notifyChilden) {
 		if(this.__eventMap != null && this.hasEventListener(event.type)) {
 			var result = openfl_events_EventDispatcher.prototype.__dispatchEvent.call(this,event);
-			if(event.__isCancelled) return true;
+			if(event.__isCanceled) return true;
 			return result;
 		}
 		return false;
 	}
 	,__dispatchEvent: function(event) {
 		var result = openfl_events_EventDispatcher.prototype.__dispatchEvent.call(this,event);
-		if(event.__isCancelled) return true;
+		if(event.__isCanceled) return true;
 		if(event.bubbles && this.parent != null && this.parent != this) {
 			event.eventPhase = openfl_events_EventPhase.BUBBLING_PHASE;
 			if(event.target == null) event.target = this;
@@ -1087,14 +1111,14 @@ openfl_display_DisplayObjectContainer.prototype = $extend(openfl_display_Interac
 	,__broadcast: function(event,notifyChilden) {
 		if(event.target == null) event.target = this;
 		var result = openfl_display_InteractiveObject.prototype.__broadcast.call(this,event,notifyChilden);
-		if(!event.__isCancelled && notifyChilden) {
+		if(!event.__isCanceled && notifyChilden) {
 			var _g = 0;
 			var _g1 = this.__children;
 			while(_g < _g1.length) {
 				var child = _g1[_g];
 				++_g;
 				child.__broadcast(event,true);
-				if(event.__isCancelled) return true;
+				if(event.__isCanceled) return true;
 			}
 		}
 		return result;
@@ -1381,23 +1405,38 @@ openfl_display_Sprite.prototype = $extend(openfl_display_DisplayObjectContainer.
 });
 var Main = function() {
 	openfl_display_Sprite.call(this);
-	var player1 = new Player("player1");
-	var player2 = new Player("player2");
-	var card = new src_Card();
-	this.createHand();
+	var box = new openfl_display_Sprite();
+	this.addChild(box);
+	var startButton = new src_Start();
+	var cardMaker = new Cardmaker();
+	var cardArray1 = [];
+	var cardArray2 = [];
+	cardMaker.makeCards();
+	cardArray1 = cardMaker.getArrayCards1();
+	cardArray2 = cardMaker.getArrayCards2();
+	var _g1 = 0;
+	var _g = cardArray1.length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		box.addChild(cardArray1[i]);
+		box.addChild(cardArray2[i]);
+	}
 };
 $hxClasses["Main"] = Main;
 Main.__name__ = ["Main"];
 Main.__super__ = openfl_display_Sprite;
 Main.prototype = $extend(openfl_display_Sprite.prototype,{
-	createHand: function() {
-		var cardData;
-		var card;
-		var box = new openfl_display_Sprite();
-		cardData = openfl_Assets.getBitmapData("img/cards/kaart1.jpg");
-		card = new openfl_display_Bitmap(cardData);
-		box.addChild(card);
-		this.addChild(box);
+	fisherYatesShuffle: function(myArray) {
+		var i = myArray.length;
+		var j;
+		var k;
+		while(i > 0) {
+			j = Std.random(i);
+			k = myArray[--i];
+			myArray[i] = myArray[j];
+			myArray[j] = k;
+		}
+		return myArray;
 	}
 	,__class__: Main
 });
@@ -1412,6 +1451,46 @@ DocumentClass.__super__ = Main;
 DocumentClass.prototype = $extend(Main.prototype,{
 	__class__: DocumentClass
 });
+var Cardmaker = function() {
+	this.arrayCards2 = [];
+	this.arrayCards1 = [];
+	this.arrayX = [];
+	this.arrayY = [];
+	this.arrayPath = [];
+};
+$hxClasses["Cardmaker"] = Cardmaker;
+Cardmaker.__name__ = ["Cardmaker"];
+Cardmaker.prototype = {
+	makeCards: function() {
+		var _g = 0;
+		while(_g < 10) {
+			var i = _g++;
+			this.arrayPath[i] = "img/cards/kaart" + i + 1 + ".jpg";
+			this.arrayX[i] = i * 100 + 100;
+		}
+		var _g1 = 0;
+		while(_g1 < 10) {
+			var i1 = _g1++;
+			this.card1 = new src_Card(i1 + 1,this.arrayPath[i1]);
+			this.card1.displayCard();
+			this.card1.set_x(this.arrayX[i1]);
+			this.card1.set_y(100);
+			this.arrayCards1[i1] = this.card1;
+			this.card2 = new src_Card(i1 + 1,this.arrayPath[i1]);
+			this.card2.displayCard();
+			this.card2.set_x(this.arrayX[i1]);
+			this.card2.set_y(200);
+			this.arrayCards2[i1] = this.card2;
+		}
+	}
+	,getArrayCards1: function() {
+		return this.arrayCards1;
+	}
+	,getArrayCards2: function() {
+		return this.arrayCards2;
+	}
+	,__class__: Cardmaker
+};
 var lime_AssetLibrary = function() {
 	this.onChange = new lime_app_Event_$Void_$Void();
 };
@@ -1493,13 +1572,46 @@ var DefaultAssetLibrary = function() {
 	this.className = new haxe_ds_StringMap();
 	lime_AssetLibrary.call(this);
 	var id;
+	id = "img/cards/cards.zip.zip";
+	this.path.set(id,id);
+	this.type.set(id,"BINARY");
 	id = "img/cards/kaart1.jpg";
 	this.path.set(id,id);
 	this.type.set(id,"IMAGE");
 	id = "img/cards/kaart10.jpg";
 	this.path.set(id,id);
 	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart11.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart12.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart13.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart14.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart15.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart16.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart17.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart18.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart19.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
 	id = "img/cards/kaart2.jpg";
+	this.path.set(id,id);
+	this.type.set(id,"IMAGE");
+	id = "img/cards/kaart20.jpg";
 	this.path.set(id,id);
 	this.type.set(id,"IMAGE");
 	id = "img/cards/kaart3.jpg";
@@ -1529,6 +1641,9 @@ var DefaultAssetLibrary = function() {
 	id = "img/cards/set.png";
 	this.path.set(id,id);
 	this.type.set(id,"IMAGE");
+	id = "img/openfl.svg";
+	this.path.set(id,id);
+	this.type.set(id,"TEXT");
 	id = "img/start.jpg";
 	this.path.set(id,id);
 	this.type.set(id,"IMAGE");
@@ -1794,15 +1909,6 @@ NMEPreloader.prototype = $extend(openfl_display_Sprite.prototype,{
 	}
 	,__class__: NMEPreloader
 });
-var Player = function(name) {
-};
-$hxClasses["Player"] = Player;
-Player.__name__ = ["Player"];
-Player.prototype = {
-	displayPoints: function() {
-	}
-	,__class__: Player
-};
 var Reflect = function() { };
 $hxClasses["Reflect"] = Reflect;
 Reflect.__name__ = ["Reflect"];
@@ -1874,6 +1980,9 @@ Std.parseInt = function(x) {
 	if(v == 0 && (HxOverrides.cca(x,1) == 120 || HxOverrides.cca(x,1) == 88)) v = parseInt(x);
 	if(isNaN(v)) return null;
 	return v;
+};
+Std.random = function(x) {
+	if(x <= 0) return 0; else return Math.floor(Math.random() * x);
 };
 var StringBuf = function() {
 	this.b = "";
@@ -2749,8 +2858,7 @@ haxe_io_Path.prototype = {
 var js__$Boot_HaxeError = function(val) {
 	Error.call(this);
 	this.val = val;
-	if(Object.prototype.hasOwnProperty.call(val,"name")) this.name = Reflect.field(val,"name"); else this.name = "Error";
-	if(Object.prototype.hasOwnProperty.call(val,"message")) this.message = Reflect.field(val,"message"); else this.message = Std.string(val);
+	this.message = String(val);
 	if(Error.captureStackTrace) Error.captureStackTrace(this,js__$Boot_HaxeError);
 };
 $hxClasses["js._Boot.HaxeError"] = js__$Boot_HaxeError;
@@ -2780,16 +2888,6 @@ js_Boot.__trace = function(v,i) {
 	}
 	var d;
 	if(typeof(document) != "undefined" && (d = document.getElementById("haxe:trace")) != null) d.innerHTML += js_Boot.__unhtml(msg) + "<br/>"; else if(typeof console != "undefined" && console.log != null) console.log(msg);
-};
-js_Boot.__clear_trace = function() {
-	var d = document.getElementById("haxe:trace");
-	if(d != null) d.innerHTML = "";
-};
-js_Boot.isClass = function(o) {
-	return o.__name__;
-};
-js_Boot.isEnum = function(e) {
-	return e.__ename__;
 };
 js_Boot.getClass = function(o) {
 	if((o instanceof Array) && o.__enum__ == null) return Array; else {
@@ -2925,7 +3023,7 @@ js_Boot.__isNativeObj = function(o) {
 	return js_Boot.__nativeClassName(o) != null;
 };
 js_Boot.__resolveNativeClass = function(name) {
-	return (Function("return typeof " + name + " != \"undefined\" ? " + name + " : null"))();
+	return $global[name];
 };
 var js_Browser = function() { };
 $hxClasses["js.Browser"] = js_Browser;
@@ -3154,9 +3252,10 @@ lime_AssetCache.prototype = {
 	,__class__: lime_AssetCache
 };
 var lime_app_Event_$Void_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Void_Void"] = lime_app_Event_$Void_$Void;
 lime_app_Event_$Void_$Void.__name__ = ["lime","app","Event_Void_Void"];
@@ -3165,23 +3264,26 @@ lime_app_Event_$Void_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -3190,20 +3292,22 @@ lime_app_Event_$Void_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function() {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i]();
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Void_$Void
@@ -5120,9 +5224,10 @@ lime_app_Application.prototype = $extend(lime_app_Module.prototype,{
 	,__properties__: {get_window:"get_window",get_renderer:"get_renderer",set_frameRate:"set_frameRate",get_frameRate:"get_frameRate"}
 });
 var lime_app_Event = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event"] = lime_app_Event;
 lime_app_Event.__name__ = ["lime","app","Event"];
@@ -5131,23 +5236,26 @@ lime_app_Event.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5156,19 +5264,20 @@ lime_app_Event.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,__class__: lime_app_Event
 };
 var lime_app_Event_$Dynamic_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Dynamic_Void"] = lime_app_Event_$Dynamic_$Void;
 lime_app_Event_$Dynamic_$Void.__name__ = ["lime","app","Event_Dynamic_Void"];
@@ -5177,23 +5286,26 @@ lime_app_Event_$Dynamic_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5202,28 +5314,31 @@ lime_app_Event_$Dynamic_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Dynamic_$Void
 };
 var lime_app_Event_$Float_$Float_$Int_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Float_Float_Int_Void"] = lime_app_Event_$Float_$Float_$Int_$Void;
 lime_app_Event_$Float_$Float_$Int_$Void.__name__ = ["lime","app","Event_Float_Float_Int_Void"];
@@ -5232,23 +5347,26 @@ lime_app_Event_$Float_$Float_$Int_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5257,28 +5375,31 @@ lime_app_Event_$Float_$Float_$Int_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1,a2) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1,a2);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Float_$Float_$Int_$Void
 };
 var lime_app_Event_$Float_$Float_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Float_Float_Void"] = lime_app_Event_$Float_$Float_$Void;
 lime_app_Event_$Float_$Float_$Void.__name__ = ["lime","app","Event_Float_Float_Void"];
@@ -5287,23 +5408,26 @@ lime_app_Event_$Float_$Float_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5312,28 +5436,31 @@ lime_app_Event_$Float_$Float_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Float_$Float_$Void
 };
 var lime_app_Event_$Int_$Float_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Int_Float_Void"] = lime_app_Event_$Int_$Float_$Void;
 lime_app_Event_$Int_$Float_$Void.__name__ = ["lime","app","Event_Int_Float_Void"];
@@ -5342,23 +5469,26 @@ lime_app_Event_$Int_$Float_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5367,28 +5497,31 @@ lime_app_Event_$Int_$Float_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Int_$Float_$Void
 };
 var lime_app_Event_$Int_$Int_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Int_Int_Void"] = lime_app_Event_$Int_$Int_$Void;
 lime_app_Event_$Int_$Int_$Void.__name__ = ["lime","app","Event_Int_Int_Void"];
@@ -5397,23 +5530,26 @@ lime_app_Event_$Int_$Int_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5422,28 +5558,31 @@ lime_app_Event_$Int_$Int_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Int_$Int_$Void
 };
 var lime_app_Event_$Int_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Int_Void"] = lime_app_Event_$Int_$Void;
 lime_app_Event_$Int_$Void.__name__ = ["lime","app","Event_Int_Void"];
@@ -5452,23 +5591,26 @@ lime_app_Event_$Int_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5477,28 +5619,31 @@ lime_app_Event_$Int_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Int_$Void
 };
 var lime_app_Event_$Int_$lime_$ui_$JoystickHatPosition_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_Int_lime_ui_JoystickHatPosition_Void"] = lime_app_Event_$Int_$lime_$ui_$JoystickHatPosition_$Void;
 lime_app_Event_$Int_$lime_$ui_$JoystickHatPosition_$Void.__name__ = ["lime","app","Event_Int_lime_ui_JoystickHatPosition_Void"];
@@ -5507,23 +5652,26 @@ lime_app_Event_$Int_$lime_$ui_$JoystickHatPosition_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5532,28 +5680,31 @@ lime_app_Event_$Int_$lime_$ui_$JoystickHatPosition_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$Int_$lime_$ui_$JoystickHatPosition_$Void
 };
 var lime_app_Event_$String_$Int_$Int_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_String_Int_Int_Void"] = lime_app_Event_$String_$Int_$Int_$Void;
 lime_app_Event_$String_$Int_$Int_$Void.__name__ = ["lime","app","Event_String_Int_Int_Void"];
@@ -5562,23 +5713,26 @@ lime_app_Event_$String_$Int_$Int_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5587,28 +5741,31 @@ lime_app_Event_$String_$Int_$Int_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1,a2) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1,a2);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$String_$Int_$Int_$Void
 };
 var lime_app_Event_$String_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_String_Void"] = lime_app_Event_$String_$Void;
 lime_app_Event_$String_$Void.__name__ = ["lime","app","Event_String_Void"];
@@ -5617,23 +5774,26 @@ lime_app_Event_$String_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5642,28 +5802,31 @@ lime_app_Event_$String_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$String_$Void
 };
 var lime_app_Event_$lime_$graphics_$RenderContext_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_graphics_RenderContext_Void"] = lime_app_Event_$lime_$graphics_$RenderContext_$Void;
 lime_app_Event_$lime_$graphics_$RenderContext_$Void.__name__ = ["lime","app","Event_lime_graphics_RenderContext_Void"];
@@ -5672,23 +5835,26 @@ lime_app_Event_$lime_$graphics_$RenderContext_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5697,28 +5863,31 @@ lime_app_Event_$lime_$graphics_$RenderContext_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$graphics_$RenderContext_$Void
 };
 var lime_app_Event_$lime_$ui_$GamepadAxis_$Float_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_ui_GamepadAxis_Float_Void"] = lime_app_Event_$lime_$ui_$GamepadAxis_$Float_$Void;
 lime_app_Event_$lime_$ui_$GamepadAxis_$Float_$Void.__name__ = ["lime","app","Event_lime_ui_GamepadAxis_Float_Void"];
@@ -5727,23 +5896,26 @@ lime_app_Event_$lime_$ui_$GamepadAxis_$Float_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5752,28 +5924,31 @@ lime_app_Event_$lime_$ui_$GamepadAxis_$Float_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$ui_$GamepadAxis_$Float_$Void
 };
 var lime_app_Event_$lime_$ui_$GamepadButton_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_ui_GamepadButton_Void"] = lime_app_Event_$lime_$ui_$GamepadButton_$Void;
 lime_app_Event_$lime_$ui_$GamepadButton_$Void.__name__ = ["lime","app","Event_lime_ui_GamepadButton_Void"];
@@ -5782,23 +5957,26 @@ lime_app_Event_$lime_$ui_$GamepadButton_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5807,28 +5985,31 @@ lime_app_Event_$lime_$ui_$GamepadButton_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$ui_$GamepadButton_$Void
 };
 var lime_app_Event_$lime_$ui_$Gamepad_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_ui_Gamepad_Void"] = lime_app_Event_$lime_$ui_$Gamepad_$Void;
 lime_app_Event_$lime_$ui_$Gamepad_$Void.__name__ = ["lime","app","Event_lime_ui_Gamepad_Void"];
@@ -5837,23 +6018,26 @@ lime_app_Event_$lime_$ui_$Gamepad_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5862,28 +6046,31 @@ lime_app_Event_$lime_$ui_$Gamepad_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$ui_$Gamepad_$Void
 };
 var lime_app_Event_$lime_$ui_$Joystick_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_ui_Joystick_Void"] = lime_app_Event_$lime_$ui_$Joystick_$Void;
 lime_app_Event_$lime_$ui_$Joystick_$Void.__name__ = ["lime","app","Event_lime_ui_Joystick_Void"];
@@ -5892,23 +6079,26 @@ lime_app_Event_$lime_$ui_$Joystick_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5917,28 +6107,31 @@ lime_app_Event_$lime_$ui_$Joystick_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$ui_$Joystick_$Void
 };
 var lime_app_Event_$lime_$ui_$KeyCode_$lime_$ui_$KeyModifier_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_ui_KeyCode_lime_ui_KeyModifier_Void"] = lime_app_Event_$lime_$ui_$KeyCode_$lime_$ui_$KeyModifier_$Void;
 lime_app_Event_$lime_$ui_$KeyCode_$lime_$ui_$KeyModifier_$Void.__name__ = ["lime","app","Event_lime_ui_KeyCode_lime_ui_KeyModifier_Void"];
@@ -5947,23 +6140,26 @@ lime_app_Event_$lime_$ui_$KeyCode_$lime_$ui_$KeyModifier_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -5972,28 +6168,31 @@ lime_app_Event_$lime_$ui_$KeyCode_$lime_$ui_$KeyModifier_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a,a1) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a,a1);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$ui_$KeyCode_$lime_$ui_$KeyModifier_$Void
 };
 var lime_app_Event_$lime_$ui_$Touch_$Void = function() {
-	this.listeners = [];
-	this.priorities = [];
-	this.repeat = [];
+	this.canceled = false;
+	this.__listeners = [];
+	this.__priorities = [];
+	this.__repeat = [];
 };
 $hxClasses["lime.app.Event_lime_ui_Touch_Void"] = lime_app_Event_$lime_$ui_$Touch_$Void;
 lime_app_Event_$lime_$ui_$Touch_$Void.__name__ = ["lime","app","Event_lime_ui_Touch_Void"];
@@ -6002,23 +6201,26 @@ lime_app_Event_$lime_$ui_$Touch_$Void.prototype = {
 		if(priority == null) priority = 0;
 		if(once == null) once = false;
 		var _g1 = 0;
-		var _g = this.priorities.length;
+		var _g = this.__priorities.length;
 		while(_g1 < _g) {
 			var i = _g1++;
-			if(priority > this.priorities[i]) {
-				this.listeners.splice(i,0,listener);
-				this.priorities.splice(i,0,priority);
-				this.repeat.splice(i,0,!once);
+			if(priority > this.__priorities[i]) {
+				this.__listeners.splice(i,0,listener);
+				this.__priorities.splice(i,0,priority);
+				this.__repeat.splice(i,0,!once);
 				return;
 			}
 		}
-		this.listeners.push(listener);
-		this.priorities.push(priority);
-		this.repeat.push(!once);
+		this.__listeners.push(listener);
+		this.__priorities.push(priority);
+		this.__repeat.push(!once);
+	}
+	,cancel: function() {
+		this.canceled = true;
 	}
 	,has: function(listener) {
 		var _g = 0;
-		var _g1 = this.listeners;
+		var _g1 = this.__listeners;
 		while(_g < _g1.length) {
 			var l = _g1[_g];
 			++_g;
@@ -6027,20 +6229,22 @@ lime_app_Event_$lime_$ui_$Touch_$Void.prototype = {
 		return false;
 	}
 	,remove: function(listener) {
-		var i = this.listeners.length;
-		while(--i >= 0) if(Reflect.compareMethods(this.listeners[i],listener)) {
-			this.listeners.splice(i,1);
-			this.priorities.splice(i,1);
-			this.repeat.splice(i,1);
+		var i = this.__listeners.length;
+		while(--i >= 0) if(Reflect.compareMethods(this.__listeners[i],listener)) {
+			this.__listeners.splice(i,1);
+			this.__priorities.splice(i,1);
+			this.__repeat.splice(i,1);
 		}
 	}
 	,dispatch: function(a) {
-		var listeners = this.listeners;
-		var repeat = this.repeat;
+		this.canceled = false;
+		var listeners = this.__listeners;
+		var repeat = this.__repeat;
 		var i = 0;
 		while(i < listeners.length) {
 			listeners[i](a);
 			if(!repeat[i]) this.remove(listeners[i]); else i++;
+			if(this.canceled) break;
 		}
 	}
 	,__class__: lime_app_Event_$lime_$ui_$Touch_$Void
@@ -6795,7 +6999,7 @@ var lime_audio_AudioSource = function(buffer,offset,length,loops) {
 	this.buffer = buffer;
 	this.offset = offset;
 	if(length != null && length != 0) this.set_length(length);
-	this.__loops = loops;
+	this.set_loops(loops);
 	this.id = 0;
 	if(buffer != null) this.init();
 };
@@ -6859,18 +7063,18 @@ lime_audio_AudioSource.prototype = {
 	,set_gain: function(value) {
 		return 1;
 	}
-	,get_loops: function() {
-		return this.__loops;
-	}
-	,set_loops: function(loops) {
-		return this.__loops = loops;
-	}
 	,get_length: function() {
 		if(this.__length != null) return this.__length;
 		return 0;
 	}
 	,set_length: function(value) {
 		return this.__length = value;
+	}
+	,get_loops: function() {
+		return this.__loops;
+	}
+	,set_loops: function(loops) {
+		return this.__loops = loops;
 	}
 	,__class__: lime_audio_AudioSource
 	,__properties__: {set_loops:"set_loops",get_loops:"get_loops",set_length:"set_length",get_length:"get_length",set_gain:"set_gain",get_gain:"get_gain",set_currentTime:"set_currentTime",get_currentTime:"get_currentTime"}
@@ -8085,6 +8289,12 @@ lime_graphics_Image.prototype = {
 		default:
 		}
 	}
+	,threshold: function(sourceImage,sourceRect,destPoint,operation,threshold,color,mask,copySource) {
+		if(copySource == null) copySource = false;
+		if(mask == null) mask = -1;
+		if(color == null) color = 0;
+		return lime_graphics_utils_ImageDataUtil.threshold(this,sourceImage,sourceRect,destPoint,operation,threshold,color,mask,copySource);
+	}
 	,setPixel32: function(x,y,color,format) {
 		if(this.buffer == null || x < 0 || y < 0 || x >= this.width || y >= this.height) return;
 		var _g = this.type;
@@ -8170,6 +8380,7 @@ lime_graphics_Image.prototype = {
 	,__fromBase64: function(base64,type,onload) {
 		var _g = this;
 		var image = new Image();
+		image.crossOrigin = "Anonymous";
 		var image_onLoaded = function(event) {
 			_g.buffer = new lime_graphics_ImageBuffer(null,image.width,image.height);
 			_g.buffer.__srcImage = image;
@@ -8190,6 +8401,7 @@ lime_graphics_Image.prototype = {
 	,__fromFile: function(path,onload,onerror) {
 		var _g = this;
 		var image = new Image();
+		image.crossOrigin = "Anonymous";
 		image.onload = function(_) {
 			_g.buffer = new lime_graphics_ImageBuffer(null,image.width,image.height);
 			_g.buffer.__srcImage = image;
@@ -11383,6 +11595,196 @@ lime_graphics_utils_ImageDataUtil.setPixels = function(image,rect,bytes,format) 
 	}
 	image.dirty = true;
 };
+lime_graphics_utils_ImageDataUtil.threshold = function(destImage,sourceImage,sourceRect,destPoint,operation,threshold,color,mask,copySource) {
+	if(copySource == null) copySource = false;
+	if(mask == null) mask = -1;
+	if(color == null) color = 0;
+	var thresholdMask = threshold & mask;
+	var a = thresholdMask >> 24 & 255;
+	var r = thresholdMask >> 16 & 255;
+	var g = thresholdMask >> 8 & 255;
+	var b = thresholdMask & 255;
+	var thresholdRGBA;
+	var rgba = 0;
+	rgba = (r & 255) << 24 | (g & 255) << 16 | (b & 255) << 8 | a & 255;
+	thresholdRGBA = rgba;
+	a = color >> 24 & 255;
+	r = color >> 16 & 255;
+	g = color >> 8 & 255;
+	b = color & 255;
+	var colorRGBA;
+	var rgba1 = 0;
+	rgba1 = (r & 255) << 24 | (g & 255) << 16 | (b & 255) << 8 | a & 255;
+	colorRGBA = rgba1;
+	var operationEnum;
+	switch(operation) {
+	case "==":
+		operationEnum = 0;
+		break;
+	case "<":
+		operationEnum = 1;
+		break;
+	case ">":
+		operationEnum = 2;
+		break;
+	case "<=":
+		operationEnum = 3;
+		break;
+	case ">=":
+		operationEnum = 4;
+		break;
+	case "!=":
+		operationEnum = 5;
+		break;
+	default:
+		operationEnum = 0;
+	}
+	var hits = 0;
+	if(sourceImage == destImage && sourceRect.equals(destImage.get_rect()) && destPoint.x == 0 && destPoint.y == 0) {
+		var pixelMask;
+		var i;
+		var test;
+		hits = lime_graphics_utils_ImageDataUtil.__threshold_inner_loop(destImage,sourceImage,sourceRect,mask,thresholdRGBA,operationEnum,colorRGBA,0,0,sourceRect.width | 0,sourceRect.height | 0);
+	} else {
+		var destData = destImage.buffer.data;
+		var destFormat = destImage.buffer.format;
+		var destPremultiplied = destImage.buffer.premultiplied;
+		sourceRect = sourceRect.clone();
+		if(sourceRect.get_right() > sourceImage.width) sourceRect.width = sourceImage.width - sourceRect.x;
+		if(sourceRect.get_bottom() > sourceImage.height) sourceRect.height = sourceImage.height - sourceRect.y;
+		var targetRect = sourceRect.clone();
+		targetRect.offsetPoint(destPoint);
+		if(targetRect.get_right() > destImage.width) targetRect.width = destImage.width - targetRect.x;
+		if(targetRect.get_bottom() > destImage.height) targetRect.height = destImage.height - targetRect.y;
+		sourceRect.width = Math.min(sourceRect.width,targetRect.width);
+		sourceRect.height = Math.min(sourceRect.height,targetRect.height);
+		var sx = sourceRect.x | 0;
+		var sy = sourceRect.y | 0;
+		var sw = sourceRect.width | 0;
+		var sh = sourceRect.height | 0;
+		var dx = destPoint.x | 0;
+		var dy = destPoint.y | 0;
+		var bw = destImage.width - sw - dx;
+		var bh = destImage.height - sh - dy;
+		var dw;
+		if(bw < 0) dw = sw + (destImage.width - sw - dx); else dw = sw;
+		var dh;
+		if(bw < 0) dh = sh + (destImage.height - sh - dy); else dh = sh;
+		if(copySource) destImage.copyPixels(sourceImage,sourceRect,destPoint);
+		var pixelMask1;
+		var i1;
+		var test1;
+		hits = lime_graphics_utils_ImageDataUtil.__threshold_inner_loop(destImage,sourceImage,sourceRect,mask,thresholdRGBA,operationEnum,colorRGBA,sx,sy,dw,dh);
+		return hits;
+	}
+	return 0;
+};
+lime_graphics_utils_ImageDataUtil.__threshold_inner_loop = function(image,sourceImage,sourceRect,mask,threshold,operation,color,startX,startY,destWidth,destHeight) {
+	var srcView = new lime_graphics_utils__$ImageDataUtil_ImageDataView(sourceImage,sourceRect);
+	var srcPixel = 0;
+	var srcPosition = 0;
+	var srcFormat = sourceImage.buffer.format;
+	var srcPremultiplied = sourceImage.buffer.premultiplied;
+	var srcData = sourceImage.buffer.data;
+	var colorRGBA = color;
+	var pixelMask = 0;
+	var i = 0;
+	var test = false;
+	var hits = 0;
+	var _g = 0;
+	while(_g < destHeight) {
+		var yy = _g++;
+		srcPosition = srcView.offset + srcView.stride * (yy + startY);
+		srcPosition += 4 * startX;
+		var _g1 = 0;
+		while(_g1 < destWidth) {
+			var xx = _g1++;
+			switch(srcFormat) {
+			case 2:
+				srcPixel = (srcData[srcPosition + 2] & 255) << 24 | (srcData[srcPosition + 1] & 255) << 16 | (srcData[srcPosition] & 255) << 8 | srcData[srcPosition + 3] & 255;
+				break;
+			case 0:
+				srcPixel = (srcData[srcPosition] & 255) << 24 | (srcData[srcPosition + 1] & 255) << 16 | (srcData[srcPosition + 2] & 255) << 8 | srcData[srcPosition + 3] & 255;
+				break;
+			case 1:
+				srcPixel = (srcData[srcPosition + 1] & 255) << 24 | (srcData[srcPosition + 2] & 255) << 16 | (srcData[srcPosition + 3] & 255) << 8 | srcData[srcPosition] & 255;
+				break;
+			}
+			if(srcPremultiplied) {
+				if((srcPixel & 255) != 0 && (srcPixel & 255) != 255) {
+					lime_math_color__$RGBA_RGBA_$Impl_$.unmult = 255.0 / (srcPixel & 255);
+					var r;
+					var idx = Math.round((srcPixel >> 24 & 255) * lime_math_color__$RGBA_RGBA_$Impl_$.unmult);
+					r = lime_math_color__$RGBA_RGBA_$Impl_$.__clamp[idx];
+					var g;
+					var idx1 = Math.round((srcPixel >> 16 & 255) * lime_math_color__$RGBA_RGBA_$Impl_$.unmult);
+					g = lime_math_color__$RGBA_RGBA_$Impl_$.__clamp[idx1];
+					var b;
+					var idx2 = Math.round((srcPixel >> 8 & 255) * lime_math_color__$RGBA_RGBA_$Impl_$.unmult);
+					b = lime_math_color__$RGBA_RGBA_$Impl_$.__clamp[idx2];
+					srcPixel = (r & 255) << 24 | (g & 255) << 16 | (b & 255) << 8 | srcPixel & 255 & 255;
+				}
+			}
+			pixelMask = srcPixel & mask;
+			i = lime_graphics_utils_ImageDataUtil.__ucompare(pixelMask,threshold);
+			switch(operation) {
+			case 0:
+				test = i == 0;
+				break;
+			case 1:
+				test = i == -1;
+				break;
+			case 2:
+				test = i == 1;
+				break;
+			case 5:
+				test = i != 0;
+				break;
+			case 3:
+				test = i == 0 || i == -1;
+				break;
+			case 4:
+				test = i == 0 || i == 1;
+				break;
+			default:
+				test = false;
+			}
+			if(test) {
+				if(srcPremultiplied) {
+					if((colorRGBA & 255) == 0) {
+						if(colorRGBA != 0) colorRGBA = 0;
+					} else if((colorRGBA & 255) != 255) {
+						lime_math_color__$RGBA_RGBA_$Impl_$.a16 = lime_math_color__$RGBA_RGBA_$Impl_$.__alpha16[colorRGBA & 255];
+						colorRGBA = ((colorRGBA >> 24 & 255) * lime_math_color__$RGBA_RGBA_$Impl_$.a16 >> 16 & 255) << 24 | ((colorRGBA >> 16 & 255) * lime_math_color__$RGBA_RGBA_$Impl_$.a16 >> 16 & 255) << 16 | ((colorRGBA >> 8 & 255) * lime_math_color__$RGBA_RGBA_$Impl_$.a16 >> 16 & 255) << 8 | colorRGBA & 255 & 255;
+					}
+				}
+				switch(srcFormat) {
+				case 2:
+					srcData[srcPosition] = colorRGBA >> 8 & 255;
+					srcData[srcPosition + 1] = colorRGBA >> 16 & 255;
+					srcData[srcPosition + 2] = colorRGBA >> 24 & 255;
+					srcData[srcPosition + 3] = colorRGBA & 255;
+					break;
+				case 0:
+					srcData[srcPosition] = colorRGBA >> 24 & 255;
+					srcData[srcPosition + 1] = colorRGBA >> 16 & 255;
+					srcData[srcPosition + 2] = colorRGBA >> 8 & 255;
+					srcData[srcPosition + 3] = colorRGBA & 255;
+					break;
+				case 1:
+					srcData[srcPosition] = colorRGBA & 255;
+					srcData[srcPosition + 1] = colorRGBA >> 24 & 255;
+					srcData[srcPosition + 2] = colorRGBA >> 16 & 255;
+					srcData[srcPosition + 3] = colorRGBA >> 8 & 255;
+					break;
+				}
+				hits++;
+			}
+			srcPosition += 4;
+		}
+	}
+	return hits;
+};
 lime_graphics_utils_ImageDataUtil.unmultiplyAlpha = function(image) {
 	var data = image.buffer.data;
 	if(data == null) return;
@@ -11441,6 +11843,25 @@ lime_graphics_utils_ImageDataUtil.unmultiplyAlpha = function(image) {
 	}
 	image.buffer.premultiplied = false;
 	image.dirty = true;
+};
+lime_graphics_utils_ImageDataUtil.__ucompare = function(n1,n2) {
+	var tmp1;
+	var tmp2;
+	tmp1 = n1 >> 24 & 255;
+	tmp2 = n2 >> 24 & 255;
+	if(tmp1 != tmp2) if(tmp1 > tmp2) return 1; else return -1; else {
+		tmp1 = n1 >> 16 & 255;
+		tmp2 = n2 >> 16 & 255;
+		if(tmp1 != tmp2) if(tmp1 > tmp2) return 1; else return -1; else {
+			tmp1 = n1 >> 8 & 255;
+			tmp2 = n2 >> 8 & 255;
+			if(tmp1 != tmp2) if(tmp1 > tmp2) return 1; else return -1; else {
+				tmp1 = n1 & 255;
+				tmp2 = n2 & 255;
+				if(tmp1 != tmp2) if(tmp1 > tmp2) return 1; else return -1; else return 0;
+			}
+		}
+	}
 };
 var lime_graphics_utils__$ImageDataUtil_ImageDataView = function(image,rect) {
 	this.image = image;
@@ -26096,8 +26517,8 @@ var openfl_display_OpenGLView = function() {
 	openfl_display_DirectRenderer.call(this,"OpenGLView");
 	if(!this.__added) {
 		this.__added = true;
-		haxe_Log.trace("Warning: OpenGLView is not available in HTML5 canvas rendering mode",{ fileName : "OpenGLView.hx", lineNumber : 66, className : "openfl.display.OpenGLView", methodName : "new"});
-		haxe_Log.trace("Please compile your project using -Ddom or -Dwebgl (beta) to enable",{ fileName : "OpenGLView.hx", lineNumber : 67, className : "openfl.display.OpenGLView", methodName : "new"});
+		haxe_Log.trace("Warning: OpenGLView is not available in HTML5 canvas rendering mode",{ fileName : "OpenGLView.hx", lineNumber : 76, className : "openfl.display.OpenGLView", methodName : "new"});
+		haxe_Log.trace("Please compile your project using -Ddom or -Dwebgl (beta) to enable",{ fileName : "OpenGLView.hx", lineNumber : 77, className : "openfl.display.OpenGLView", methodName : "new"});
 	}
 };
 $hxClasses["openfl.display.OpenGLView"] = openfl_display_OpenGLView;
@@ -26837,17 +27258,17 @@ openfl_display_Stage.prototype = $extend(openfl_display_DisplayObjectContainer.p
 			while(_g1 < _g) {
 				var i = _g1++;
 				stack[i].__broadcast(event,false);
-				if(event.__isCancelled) return;
+				if(event.__isCanceled) return;
 			}
 			event.eventPhase = openfl_events_EventPhase.AT_TARGET;
 			event.target.__broadcast(event,false);
-			if(event.__isCancelled) return;
+			if(event.__isCanceled) return;
 			if(event.bubbles) {
 				event.eventPhase = openfl_events_EventPhase.BUBBLING_PHASE;
 				var i1 = length - 2;
 				while(i1 >= 0) {
 					stack[i1].__broadcast(event,false);
-					if(event.__isCancelled) return;
+					if(event.__isCanceled) return;
 					i1--;
 				}
 			}
@@ -27263,6 +27684,9 @@ openfl_display_Stage.prototype = $extend(openfl_display_DisplayObjectContainer.p
 			var event = new openfl_events_KeyboardEvent(type,true,false,charCode,keyCode1,keyLocation,this.__macKeyboard?lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_ctrlKey(modifier) || lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_metaKey(modifier):lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_ctrlKey(modifier),lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_altKey(modifier),lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_shiftKey(modifier),lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_ctrlKey(modifier),lime_ui__$KeyModifier_KeyModifier_$Impl_$.get_metaKey(modifier));
 			stack.reverse();
 			this.__fireEvent(event,stack);
+			if(event.__isCanceled) {
+				if(type == openfl_events_KeyboardEvent.KEY_DOWN) this.window.onKeyDown.cancel(); else this.window.onKeyUp.cancel();
+			}
 		}
 	}
 	,__onMouse: function(type,x,y,button) {
@@ -28752,11 +29176,11 @@ openfl_events_Event.prototype = {
 		if(this.cancelable) this.__preventDefault = true;
 	}
 	,stopImmediatePropagation: function() {
-		this.__isCancelled = true;
-		this.__isCancelledNow = true;
+		this.__isCanceled = true;
+		this.__isCanceledNow = true;
 	}
 	,stopPropagation: function() {
-		this.__isCancelled = true;
+		this.__isCanceled = true;
 	}
 	,toString: function() {
 		return this.__formatToString("Event",["type","bubbles","cancelable"]);
@@ -32983,7 +33407,7 @@ openfl_net_URLLoader.prototype = $extend(openfl_events_EventDispatcher.prototype
 		var _g = this.dataFormat;
 		switch(_g[1]) {
 		case 0:
-			this.data = js_Boot.__cast(content , openfl_utils_ByteArrayData);
+			this.data = openfl_utils__$ByteArray_ByteArray_$Impl_$.fromArrayBuffer(content);
 			break;
 		default:
 			this.data = Std.string(content);
@@ -35242,14 +35666,55 @@ haxe_lang_Iterable.__name__ = ["haxe","lang","Iterable"];
 haxe_lang_Iterable.prototype = {
 	__class__: haxe_lang_Iterable
 };
-var src_Card = function() {
+var src_Card = function(v,iname) {
 	openfl_display_Sprite.call(this);
+	this.value = v;
+	this.imageName = iname;
+	this.addEventListener("click",$bind(this,this.makeActionTrue));
 };
 $hxClasses["src.Card"] = src_Card;
 src_Card.__name__ = ["src","Card"];
 src_Card.__super__ = openfl_display_Sprite;
 src_Card.prototype = $extend(openfl_display_Sprite.prototype,{
-	__class__: src_Card
+	checkCardid: function(e) {
+	}
+	,makeActionTrue: function(e) {
+		this.active = true;
+		this.displayCard();
+	}
+	,displayCard: function() {
+		if(this.active == true) {
+			var cardData = openfl_Assets.getBitmapData(this.imageName);
+			var card = new openfl_display_Bitmap(cardData);
+			this.addChild(card);
+		} else {
+			var cardData1 = openfl_Assets.getBitmapData("img/cards/kaartback.jpg");
+			var card1 = new openfl_display_Bitmap(cardData1);
+			this.addChild(card1);
+		}
+	}
+	,__class__: src_Card
+});
+var src_Start = function() {
+	this.startBool = false;
+	openfl_display_Sprite.call(this);
+};
+$hxClasses["src.Start"] = src_Start;
+src_Start.__name__ = ["src","Start"];
+src_Start.__super__ = openfl_display_Sprite;
+src_Start.prototype = $extend(openfl_display_Sprite.prototype,{
+	createStartButton: function() {
+		var startButtonData = openfl_Assets.getBitmapData("img/start.jpg");
+		var startButton = new openfl_display_Bitmap(startButtonData);
+		this.addChild(startButton);
+	}
+	,start: function(e) {
+		this.startBool = true;
+	}
+	,getStartBool: function() {
+		return this.startBool;
+	}
+	,__class__: src_Start
 });
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }

@@ -30,6 +30,10 @@ class ApplicationMain {
 		var types = [];
 		
 		
+		urls.push ("img/cards/cards.zip.zip");
+		types.push (lime.Assets.AssetType.BINARY);
+		
+		
 		urls.push ("img/cards/kaart1.jpg");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -38,7 +42,47 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("img/cards/kaart11.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart12.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart13.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart14.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart15.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart16.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart17.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart18.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart19.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("img/cards/kaart2.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/cards/kaart20.jpg");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -76,6 +120,10 @@ class ApplicationMain {
 		
 		urls.push ("img/cards/set.png");
 		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/openfl.svg");
+		types.push (lime.Assets.AssetType.TEXT);
 		
 		
 		urls.push ("img/start.jpg");
@@ -143,7 +191,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "31",
+			build: "459",
 			company: "Marcel Stoepker",
 			file: "memorygame",
 			fps: 60,
@@ -160,7 +208,7 @@ class ApplicationMain {
 					depthBuffer: false,
 					display: 0,
 					fullscreen: false,
-					hardware: true,
+					hardware: false,
 					height: 480,
 					parameters: "{}",
 					resizable: true,

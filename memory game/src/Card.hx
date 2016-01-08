@@ -15,17 +15,17 @@ class Card extends Sprite {
 	var imageName:String;
 	var active:Bool;
 	var sameId : Bool;
+
 	
 
 	public function new(v:Int,iname:String){
 			super();
 			value = v;
 			imageName = iname; 
+			// addEventListener(MouseEvent.CLICK, this.makeActionTrue);
+			this.addEventListener( "click", makeActionTrue);
 	}
-	
-	public function checkCardid(e:MouseEvent):Void {
-	
-	}
+
 	
 	public function makeActionTrue(e:MouseEvent):Void{
 		active = true;
