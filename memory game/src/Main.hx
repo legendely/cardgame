@@ -33,16 +33,4 @@ class Main extends Sprite{
 			box.addChild(cardArray2[i]);
 		}
 	}
-	
-	public function fisherYatesShuffle(myArray:Array<Int>):Array<Int> {
-	
-			var i:Int = myArray.length, j:Int, k:Int;
-			while (i > 0){
-			j = Std.random(i);
-			k = myArray[--i];
-			myArray[i] = myArray[j];
-			myArray[j] = k;
-			}
-			return myArray;
-	}
 }

@@ -26,26 +26,43 @@ class Cardmaker {
 		
 		for (i in 0...10) {
 			// +1 is because of the card names start with 1 and not 0.
-			arrayX[i] = i*100+100;
+			arrayX[i] = i * 100 + 100;
 		}
-	
-
 		
 		
-		//makes new cards and cords, puts them in an Array	
+		arrayX = fisherYatesShuffle(arrayX);
+		
+		//makes new cards and cords, puts them in an Array
+		
 		for (i in 0...10) {
 				card1 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
 				card1.displayCard();
 				card1.x = arrayX[i];
-				card1.y = 100;
+				card1.y = 300;
 				arrayCards1[i] = card1;
-	
-				card2 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
+		}
+		arrayX = fisherYatesShuffle(arrayX);
+		for (i in 0...10){
+			card2 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
 				card2.displayCard();
 				card2.x = arrayX[i];
-				card2.y = 200;
+				card2.y = 150;
 				arrayCards2[i] = card2;
-		}
+		}	
+				
+	}
+
+	
+	public function fisherYatesShuffle(myArray:Array<Int>):Array<Int> {
+	
+			var i:Int = myArray.length, j:Int, k:Int;
+			while (i > 0){
+			j = Std.random(i);
+			k = myArray[--i];
+			myArray[i] = myArray[j];
+			myArray[j] = k;
+			}
+			return myArray;
 	}
 	
 	public function getArrayCards1(){
