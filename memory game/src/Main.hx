@@ -26,16 +26,19 @@ class Main extends Sprite{
 		box.addChild(startButton);
 		
 		//if (startButton.startBool == true){
-			// makes cards and puts the cards in arrays
-			cardMaker.makeCards();
-			cardArray1 = cardMaker.getArrayCards1();
-			cardArray2 = cardMaker.getArrayCards2();
+		// makes cards and puts the cards in arrays
+		cardMaker.makeCards();
+		cardArray1 = cardMaker.getArrayCards1();
+		cardArray2 = cardMaker.getArrayCards2();
 		
-			// adds all the cards created by cardmaker to box;
-			for (i in 0...cardArray1.length) {
-				box.addChild(cardArray1[i]);
-				box.addChild(cardArray2[i]);
-			}
+		box.addEventListener(MouseEvent.CLICK, cardControler.clickedSomewhere);
+		// adds all the cards created by cardmaker to box;
+		for (i in 0...cardArray1.length) {
+			box.addChild(cardArray1[i]);
+			box.addChild(cardArray2[i]);
+		}
+		
+		
 		//}
 	}
 }
