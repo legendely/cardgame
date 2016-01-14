@@ -7,23 +7,17 @@ import openfl.events.MouseEvent;
 class Player
 {
 	public var points : Int;
-	public var name : String;
 	public var hisTurn : Bool;
-	public var otherPlayerTurn : Bool;
 	public var amountOfClicks: Int;
 	
-	public function new(name:String,turn:Bool){
-		hisTurn = turn;
+	public function new(turn:Bool){
+
 	}
 	
 	public function addPlayerClick(e:MouseEvent):Void {
-		if (hisTurn == true ){
-			amountOfClicks++;
-			if (amountOfClicks == 2){
-				
-			}
-		}
+		amountOfClicks++;
 	}
+	
 	
 	public function getHisTurn():Bool{
 		return hisTurn;

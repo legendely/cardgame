@@ -54,7 +54,7 @@ class Cardmaker {
 
 	
 	public function fisherYatesShuffle(myArray:Array<Int>):Array<Int> {
-	
+			// function to shuffle an array.
 			var i:Int = myArray.length, j:Int, k:Int;
 			while (i > 0){
 			j = Std.random(i);
@@ -65,6 +65,7 @@ class Cardmaker {
 			return myArray;
 	}
 	
+	//getters
 	public function getArrayCards1(){
 		return arrayCards1;
 	}

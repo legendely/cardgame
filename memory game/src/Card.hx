@@ -11,28 +11,25 @@ import openfl.events.MouseEvent;
  */
 class Card extends Sprite {
 	// vars
-	var value:Int;
+	public var value:Int;
 	var imageName:String;
-	var active:Bool;
-	var sameId : Bool;
-
-	
+	public var active:Bool;
 
 	public function new(v:Int,iname:String){
-			super();
-			value = v;
-			imageName = iname; 
-			// addEventListener(MouseEvent.CLICK, this.makeActionTrue);
-			this.addEventListener( "click", makeActionTrue);
+		super();
+		value = v;
+		imageName = iname; 
+		this.addEventListener( "click", makeActionTrue);
 	}
 
-	
-	public function makeActionTrue(e:MouseEvent):Void{
+	public function makeActionTrue(e:MouseEvent):Void {
+		// when a card is clicked this function will display the card again
 		active = true;
 		displayCard();
 	}
 
-	public function displayCard(){
+	public function displayCard() {
+		//adds pictures accoring to the state of the object.
 		if (active == true){
 			var cardData:BitmapData = Assets.getBitmapData( imageName );
 			var card:Bitmap = new Bitmap( cardData );
