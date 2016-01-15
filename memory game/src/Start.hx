@@ -13,11 +13,15 @@ class Start extends Sprite{
 	var playerControler :PlayerControler = new PlayerControler();
 	var cardControler : CardControler = new CardControler();
 	var clickCount : Int = -1;
+	var turnDisplay :Sprite = new Sprite();
 	
 	var startButtonData:BitmapData;
 	var startButton:Bitmap;
 	var tempInt1 : Int = 0;
 	var tempInt2 : Int = 0;
+	
+	var turnDisplayData:BitmapData;
+	var turnDisplayMap:Bitmap;
 	
 	var card1 : Card;
 	var card2 : Card;
@@ -62,6 +66,8 @@ class Start extends Sprite{
 		// setting start true and deletes the button
 		deleteStartButton();
 		startCards();
+		playerTurnDisplay();
+		playerControler.player1.hisTurn = true;
 	}
 
 	public function cardChecker() {
@@ -86,15 +92,25 @@ class Start extends Sprite{
 	
 	public function afterCardsClicked(){
 		compareCards();
-		
 		if (sameCard == true){
 			this.removeChild(card1);
 			this.removeChild(card2);
-			//playerControler.getPlayerOnTurn().points++;
-			//playerControler.checkPlayerWin();
-			//if (playerControler.playerWin == true){
-			//	playerWins();
-			//}
+			
+			if (playerControler.player1.hisTurn == true){
+				playerControler.player1.points++;
+			}else if(playerControler.player2.hisTurn == true){
+				playerControler.player2.points++;
+			}
+			
+			Sys.println("points player 1:> " + playerControler.player1.points);
+			Sys.println("points player 2:> " + playerControler.player2.points);
+			
+			playerControler.checkPlayerWin();
+			
+			if (playerControler.playerWin == true){
+				playerWins();
+			}
+			
 			playerControler.changePlayerTurn();
 			cardControler.setAllCardsFalse(cardArray1, cardArray2);
 		}else if(sameCard == false){
@@ -104,10 +120,13 @@ class Start extends Sprite{
 	}
 	
 	public function playerWins() {
+		this.removeChildren;
+		Sys.println("player1 wins!");
 		this.addChild(playerControler.winMap);
 	}
 
-	public function countClicks(e:MouseEvent):Void{
+	public function countClicks(e:MouseEvent):Void {
+		playerTurnDisplay();
 		cardControler.displayReset(cardArray1, cardArray2);
 		if (clickCount == 0) {
 			card1 = e.target;
@@ -127,6 +146,25 @@ class Start extends Sprite{
 			sameCard = true;
 		}else{
 			sameCard = false;
+		}
+	}
+	
+	public function playerTurnDisplay(){
+		if (playerControler.player1.hisTurn == true){
+				turnDisplayData = Assets.getBitmapData( "img/cards/player1turn.jpg" );
+				turnDisplayMap= new Bitmap( turnDisplayData );
+				turnDisplay.addChild(turnDisplayMap);
+				turnDisplay.x = 50;
+				turnDisplay.y = 600;
+				addChild(turnDisplay);
+				
+		}else if(playerControler.player2.hisTurn == true){
+				turnDisplayData = Assets.getBitmapData( "img/cards/player2turn.jpg" );
+				turnDisplayMap= new Bitmap( turnDisplayData );
+				turnDisplay.addChild(turnDisplayMap);
+				turnDisplay.x = 50;
+				turnDisplay.y = 600;
+				addChild(turnDisplay);
 		}
 	}
 }	

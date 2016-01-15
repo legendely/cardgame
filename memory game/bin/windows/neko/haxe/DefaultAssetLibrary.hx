@@ -79,6 +79,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
 		#end
 		
 		#if flash
@@ -129,8 +131,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/cards/kaartback.jpg", AssetType.IMAGE);
 		path.set ("img/cards/player1.jpg", "img/cards/player1.jpg");
 		type.set ("img/cards/player1.jpg", AssetType.IMAGE);
+		path.set ("img/cards/player1turn.jpg", "img/cards/player1turn.jpg");
+		type.set ("img/cards/player1turn.jpg", AssetType.IMAGE);
 		path.set ("img/cards/player2.jpg", "img/cards/player2.jpg");
 		type.set ("img/cards/player2.jpg", AssetType.IMAGE);
+		path.set ("img/cards/player2turn.jpg", "img/cards/player2turn.jpg");
+		type.set ("img/cards/player2turn.jpg", AssetType.IMAGE);
 		path.set ("img/cards/set.png", "img/cards/set.png");
 		type.set ("img/cards/set.png", AssetType.IMAGE);
 		path.set ("img/openfl.svg", "img/openfl.svg");
@@ -211,7 +217,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "img/cards/player1.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
+		id = "img/cards/player1turn.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "img/cards/player2.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/player2turn.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "img/cards/set.png";
@@ -240,6 +252,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -940,7 +954,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
 #elseif html5
+
+
 
 
 

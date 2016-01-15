@@ -9,11 +9,12 @@ import openfl.events.MouseEvent;
 
 class Card extends Sprite {
 	// vars
+	public var id:Int;
 	public var value:Int;
 	var imageName:String;
 	public var active:Bool;
 	
-	public function new(v:Int,iname:String){
+	public function new(v:Int,iname:String,id:Int){
 		super();
 		value = v;
 		imageName = iname; 

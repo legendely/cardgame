@@ -6,7 +6,7 @@ import openfl.events.MouseEvent;
  */
 class Player
 {
-	public var points : Int;
+	public var points : Int = 0;
 	public var hisTurn : Bool;
 	
 	public function new(turn:Bool){
