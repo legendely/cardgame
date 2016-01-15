@@ -12,15 +12,21 @@ class Start extends Sprite{
 	var cardArray2 : Array<Card> = new Array();
 	var playerControler :PlayerControler = new PlayerControler();
 	var cardControler : CardControler = new CardControler();
+	var clickCount : Int = -1;
 	
 	var startButtonData:BitmapData;
 	var startButton:Bitmap;
-	var tempInt1 : Int;
-	var tempInt2 : Int;
+	var tempInt1 : Int = 0;
+	var tempInt2 : Int = 0;
+	
+	var card1 : Card;
+	var card2 : Card;
+	var sameCard : Bool;
 	
 	public function new(){
 		super();
 		this.addEventListener( "click", start);
+		this.addEventListener("click", countClicks);
 	}
 	
 	//** start button section **
@@ -37,7 +43,6 @@ class Start extends Sprite{
 		removeChild(startButton);
 	}
 	//** start button section **
-	
 	
 	public function startCards(){
 		// makes cards and puts the cards in arrays
@@ -57,15 +62,8 @@ class Start extends Sprite{
 		// setting start true and deletes the button
 		deleteStartButton();
 		startCards();
-		
 	}
-	
-	public function cardDeleter() {
-		// will delete the cards where the values are the same
-			this.removeChild(cardArray1[tempInt1]);
-			this.removeChild(cardArray2[tempInt2]);
-	}
-	
+
 	public function cardChecker() {
 		// gets the values of the place in the array which cards have to be deleted
 		// for function cardDeleter().
@@ -87,29 +85,48 @@ class Start extends Sprite{
 	}
 	
 	public function afterCardsClicked(){
-		cardControler.compareCards(cardArray1,cardArray2);
-		if (cardControler.sameCards == true){
-			playerControler.getPlayerOnTurn().points++;
-			playerControler.changePlayerTurn();
-			cardDeleter();
-			// sets bitmap and bitmapdata if player won.
-			playerControler.checkPlayerWin();
-			// a player wins
-			if (playerControler.playerWin == true){
-				playerWins();
-			}
-			
-			cardControler.setAllCardsFalse(cardArray1, cardArray2);
-			cardControler.displayReset(cardArray1, cardArray2);
-		}
-		else{
+		compareCards();
+		
+		if (sameCard == true){
+			this.removeChild(card1);
+			this.removeChild(card2);
+			//playerControler.getPlayerOnTurn().points++;
+			//playerControler.checkPlayerWin();
+			//if (playerControler.playerWin == true){
+			//	playerWins();
+			//}
 			playerControler.changePlayerTurn();
 			cardControler.setAllCardsFalse(cardArray1, cardArray2);
-			cardControler.displayReset(cardArray1, cardArray2);
+		}else if(sameCard == false){
+			playerControler.changePlayerTurn();
+			cardControler.setAllCardsFalse(cardArray1, cardArray2);
 		}
 	}
 	
 	public function playerWins() {
 		this.addChild(playerControler.winMap);
 	}
-}
+
+	public function countClicks(e:MouseEvent):Void{
+		cardControler.displayReset(cardArray1, cardArray2);
+		if (clickCount == 0) {
+			card1 = e.target;
+		}else if (clickCount == 1){
+			card2 = e.target;
+		}
+
+		clickCount++;
+		if (clickCount == 2) {
+			clickCount = 0;
+			afterCardsClicked();
+		}
+	}
+	
+	public function compareCards(){
+		if (card1.value == card2.value){
+			sameCard = true;
+		}else{
+			sameCard = false;
+		}
+	}
+}	

@@ -4,10 +4,7 @@ import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.Assets;
 import src.Player;
-/**
- * ...
- * @author Marcel Stoepker
- */
+
 class PlayerControler{
 	
 	public var player1:Player = new Player(false);

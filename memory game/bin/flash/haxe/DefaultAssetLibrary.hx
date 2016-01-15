@@ -65,16 +65,52 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		#end
 		
 		#if flash
 		
+		className.set ("img/cards/cards.zip.zip", __ASSET__img_cards_cards_zip_zip);
+		type.set ("img/cards/cards.zip.zip", AssetType.BINARY);
 		className.set ("img/cards/kaart1.jpg", __ASSET__img_cards_kaart1_jpg);
 		type.set ("img/cards/kaart1.jpg", AssetType.IMAGE);
 		className.set ("img/cards/kaart10.jpg", __ASSET__img_cards_kaart10_jpg);
 		type.set ("img/cards/kaart10.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart11.jpg", __ASSET__img_cards_kaart11_jpg);
+		type.set ("img/cards/kaart11.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart12.jpg", __ASSET__img_cards_kaart12_jpg);
+		type.set ("img/cards/kaart12.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart13.jpg", __ASSET__img_cards_kaart13_jpg);
+		type.set ("img/cards/kaart13.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart14.jpg", __ASSET__img_cards_kaart14_jpg);
+		type.set ("img/cards/kaart14.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart15.jpg", __ASSET__img_cards_kaart15_jpg);
+		type.set ("img/cards/kaart15.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart16.jpg", __ASSET__img_cards_kaart16_jpg);
+		type.set ("img/cards/kaart16.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart17.jpg", __ASSET__img_cards_kaart17_jpg);
+		type.set ("img/cards/kaart17.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart18.jpg", __ASSET__img_cards_kaart18_jpg);
+		type.set ("img/cards/kaart18.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart19.jpg", __ASSET__img_cards_kaart19_jpg);
+		type.set ("img/cards/kaart19.jpg", AssetType.IMAGE);
 		className.set ("img/cards/kaart2.jpg", __ASSET__img_cards_kaart2_jpg);
 		type.set ("img/cards/kaart2.jpg", AssetType.IMAGE);
+		className.set ("img/cards/kaart20.jpg", __ASSET__img_cards_kaart20_jpg);
+		type.set ("img/cards/kaart20.jpg", AssetType.IMAGE);
 		className.set ("img/cards/kaart3.jpg", __ASSET__img_cards_kaart3_jpg);
 		type.set ("img/cards/kaart3.jpg", AssetType.IMAGE);
 		className.set ("img/cards/kaart4.jpg", __ASSET__img_cards_kaart4_jpg);
@@ -91,8 +127,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/cards/kaart9.jpg", AssetType.IMAGE);
 		className.set ("img/cards/kaartback.jpg", __ASSET__img_cards_kaartback_jpg);
 		type.set ("img/cards/kaartback.jpg", AssetType.IMAGE);
+		className.set ("img/cards/player1.jpg", __ASSET__img_cards_player1_jpg);
+		type.set ("img/cards/player1.jpg", AssetType.IMAGE);
+		className.set ("img/cards/player2.jpg", __ASSET__img_cards_player2_jpg);
+		type.set ("img/cards/player2.jpg", AssetType.IMAGE);
 		className.set ("img/cards/set.png", __ASSET__img_cards_set_png);
 		type.set ("img/cards/set.png", AssetType.IMAGE);
+		className.set ("img/openfl.svg", __ASSET__img_openfl_svg);
+		type.set ("img/openfl.svg", AssetType.TEXT);
 		className.set ("img/start.jpg", __ASSET__img_start_jpg);
 		type.set ("img/start.jpg", AssetType.IMAGE);
 		
@@ -100,6 +142,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#elseif html5
 		
 		var id;
+		id = "img/cards/cards.zip.zip";
+		path.set (id, id);
+		
+		type.set (id, AssetType.BINARY);
 		id = "img/cards/kaart1.jpg";
 		path.set (id, id);
 		
@@ -108,7 +154,47 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart11.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart12.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart13.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart14.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart15.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart16.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart17.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart18.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart19.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "img/cards/kaart2.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/kaart20.jpg";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -144,10 +230,22 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/cards/player1.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/cards/player2.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "img/cards/set.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "img/openfl.svg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
 		id = "img/start.jpg";
 		path.set (id, id);
 		
@@ -170,14 +268,47 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		var useManifest = false;
 		
+		className.set ("img/cards/cards.zip.zip", __ASSET__img_cards_cards_zip_zip);
+		type.set ("img/cards/cards.zip.zip", AssetType.BINARY);
+		
 		className.set ("img/cards/kaart1.jpg", __ASSET__img_cards_kaart1_jpg);
 		type.set ("img/cards/kaart1.jpg", AssetType.IMAGE);
 		
 		className.set ("img/cards/kaart10.jpg", __ASSET__img_cards_kaart10_jpg);
 		type.set ("img/cards/kaart10.jpg", AssetType.IMAGE);
 		
+		className.set ("img/cards/kaart11.jpg", __ASSET__img_cards_kaart11_jpg);
+		type.set ("img/cards/kaart11.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart12.jpg", __ASSET__img_cards_kaart12_jpg);
+		type.set ("img/cards/kaart12.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart13.jpg", __ASSET__img_cards_kaart13_jpg);
+		type.set ("img/cards/kaart13.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart14.jpg", __ASSET__img_cards_kaart14_jpg);
+		type.set ("img/cards/kaart14.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart15.jpg", __ASSET__img_cards_kaart15_jpg);
+		type.set ("img/cards/kaart15.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart16.jpg", __ASSET__img_cards_kaart16_jpg);
+		type.set ("img/cards/kaart16.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart17.jpg", __ASSET__img_cards_kaart17_jpg);
+		type.set ("img/cards/kaart17.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart18.jpg", __ASSET__img_cards_kaart18_jpg);
+		type.set ("img/cards/kaart18.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart19.jpg", __ASSET__img_cards_kaart19_jpg);
+		type.set ("img/cards/kaart19.jpg", AssetType.IMAGE);
+		
 		className.set ("img/cards/kaart2.jpg", __ASSET__img_cards_kaart2_jpg);
 		type.set ("img/cards/kaart2.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/kaart20.jpg", __ASSET__img_cards_kaart20_jpg);
+		type.set ("img/cards/kaart20.jpg", AssetType.IMAGE);
 		
 		className.set ("img/cards/kaart3.jpg", __ASSET__img_cards_kaart3_jpg);
 		type.set ("img/cards/kaart3.jpg", AssetType.IMAGE);
@@ -203,8 +334,17 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("img/cards/kaartback.jpg", __ASSET__img_cards_kaartback_jpg);
 		type.set ("img/cards/kaartback.jpg", AssetType.IMAGE);
 		
+		className.set ("img/cards/player1.jpg", __ASSET__img_cards_player1_jpg);
+		type.set ("img/cards/player1.jpg", AssetType.IMAGE);
+		
+		className.set ("img/cards/player2.jpg", __ASSET__img_cards_player2_jpg);
+		type.set ("img/cards/player2.jpg", AssetType.IMAGE);
+		
 		className.set ("img/cards/set.png", __ASSET__img_cards_set_png);
 		type.set ("img/cards/set.png", AssetType.IMAGE);
+		
+		className.set ("img/openfl.svg", __ASSET__img_openfl_svg);
+		type.set ("img/openfl.svg", AssetType.TEXT);
 		
 		className.set ("img/start.jpg", __ASSET__img_start_jpg);
 		type.set ("img/start.jpg", AssetType.IMAGE);
@@ -852,9 +992,20 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if !display
 #if flash
 
+@:keep @:bind #if display private #end class __ASSET__img_cards_cards_zip_zip extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart1_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart10_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart11_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart12_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart13_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart14_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart15_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart16_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart17_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart18_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart19_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart2_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_kaart20_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart3_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart4_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart5_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -863,11 +1014,28 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart8_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaart9_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_kaartback_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_player1_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_cards_player2_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__img_cards_set_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_openfl_svg extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__img_start_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 
 
 #elseif html5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -891,9 +1059,20 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if (windows || mac || linux || cpp)
 
 
+@:file("assets/img/cards/cards.zip.zip") #if display private #end class __ASSET__img_cards_cards_zip_zip extends lime.utils.Bytes {}
 @:image("assets/img/cards/kaart1.jpg") #if display private #end class __ASSET__img_cards_kaart1_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaart10.jpg") #if display private #end class __ASSET__img_cards_kaart10_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart11.jpg") #if display private #end class __ASSET__img_cards_kaart11_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart12.jpg") #if display private #end class __ASSET__img_cards_kaart12_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart13.jpg") #if display private #end class __ASSET__img_cards_kaart13_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart14.jpg") #if display private #end class __ASSET__img_cards_kaart14_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart15.jpg") #if display private #end class __ASSET__img_cards_kaart15_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart16.jpg") #if display private #end class __ASSET__img_cards_kaart16_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart17.jpg") #if display private #end class __ASSET__img_cards_kaart17_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart18.jpg") #if display private #end class __ASSET__img_cards_kaart18_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart19.jpg") #if display private #end class __ASSET__img_cards_kaart19_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaart2.jpg") #if display private #end class __ASSET__img_cards_kaart2_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/kaart20.jpg") #if display private #end class __ASSET__img_cards_kaart20_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaart3.jpg") #if display private #end class __ASSET__img_cards_kaart3_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaart4.jpg") #if display private #end class __ASSET__img_cards_kaart4_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaart5.jpg") #if display private #end class __ASSET__img_cards_kaart5_jpg extends lime.graphics.Image {}
@@ -902,7 +1081,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/img/cards/kaart8.jpg") #if display private #end class __ASSET__img_cards_kaart8_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaart9.jpg") #if display private #end class __ASSET__img_cards_kaart9_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/kaartback.jpg") #if display private #end class __ASSET__img_cards_kaartback_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/player1.jpg") #if display private #end class __ASSET__img_cards_player1_jpg extends lime.graphics.Image {}
+@:image("assets/img/cards/player2.jpg") #if display private #end class __ASSET__img_cards_player2_jpg extends lime.graphics.Image {}
 @:image("assets/img/cards/set.png") #if display private #end class __ASSET__img_cards_set_png extends lime.graphics.Image {}
+@:file("assets/img/openfl.svg") #if display private #end class __ASSET__img_openfl_svg extends lime.utils.Bytes {}
 @:image("assets/img/start.jpg") #if display private #end class __ASSET__img_start_jpg extends lime.graphics.Image {}
 
 

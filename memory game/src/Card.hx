@@ -12,13 +12,12 @@ class Card extends Sprite {
 	public var value:Int;
 	var imageName:String;
 	public var active:Bool;
-
+	
 	public function new(v:Int,iname:String){
 		super();
 		value = v;
 		imageName = iname; 
 		//this.addEventListener( "click", makeActionTrue);
-
 	}
 
 	public function makeActionTrue(e:MouseEvent):Void {
