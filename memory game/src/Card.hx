@@ -19,11 +19,13 @@ class Card extends Sprite {
 	var sameId : Bool;
 	var compare : CardCompare;
 	var maker : Cardmaker;
+	var id : Int;
 
 	
 
-	public function new(v:Int, iname:String, m:Cardmaker) {	
+	public function new(v:Int, iname:String, m:Cardmaker, i:Int) {	
 			super();
+			id = i;
 			maker = m;
 			status = 0;
 			value = v;
@@ -87,6 +89,10 @@ class Card extends Sprite {
 	
 	public function getStatus(){
 		return status;
+	}
+	
+	public function getId(){
+		return id;
 	}
 	
 	public function setCompare(com:CardCompare){

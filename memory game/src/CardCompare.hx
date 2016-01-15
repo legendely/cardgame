@@ -15,7 +15,7 @@ class CardCompare
 	
 	public function compareCards(c: Card):Bool{
 		for (i in 0...inPlay.length) {
-			if (inPlay[i].getValue() == c.getValue()) {
+			if (inPlay[i].getValue() == c.getValue() && inPlay[i].getId() != c.getId()) {
 				flushInPlay();
 				return true;
 			}

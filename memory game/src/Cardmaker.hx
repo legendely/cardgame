@@ -34,12 +34,12 @@ class Cardmaker {
 		
 		//makes new cards and cords, puts them in an Array	
 		for (i in 0...10) {
-				card1 = new Card((i + 1), "img/cards/kaart" + (i+1) + ".jpg", this);
+				card1 = new Card((i + 1), "img/cards/kaart" + (i+1) + ".jpg", this, i);
 				card1.x = arrayX[i];
 				card1.y = 100;
 				arrayCards1[i] = card1;
 	
-				card2 = new Card((i + 1), "img/cards/kaart" + (i+1) + ".jpg", this);
+				card2 = new Card((i + 1), "img/cards/kaart" + (i+1) + ".jpg", this, (i+10));
 				card2.x = arrayX[i];
 				card2.y = 200;
 				arrayCards2[i] = card2;
