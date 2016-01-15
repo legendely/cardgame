@@ -1,5 +1,9 @@
-package;
+package src;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 import openfl.display.Sprite;
+import openfl.Assets;
+import src.Player;
 /**
  * ...
  * @author Marcel Stoepker
@@ -7,11 +11,18 @@ import openfl.display.Sprite;
 class PlayerControler{
 	
 	public var player1:Player = new Player(false);
-	public var player2:Player = new Player(false); 
+	public var player2:Player = new Player(false);
+	public var playerArray:Array<Player> = new Array();
 	public var playerturn:String;
+	public var winData : BitmapData;
+	public var winMap : Bitmap;
+	public var playerWin: Bool;
 	
-	public function new(){
+	public function new() {
+		playerArray.push(player1);
+		playerArray.push(player2);
 	}
+	
 	
 	public function turnCheck() {
 		//checks who's turn it is
@@ -34,7 +45,27 @@ class PlayerControler{
 		}
 	}
 	
-	public function addPointsToPlayer(){
+	public function getPlayerOnTurn():Player{
+		var tempvar:Int;
+		
+		if (player1.hisTurn = true){
+			tempvar = 0;
+		}else{
+			tempvar = 1;
+		}
+		return playerArray[tempvar];
+	}
 	
+	public function checkPlayerWin(){
+		if (player1.points == 5) {
+			playerWin = true;
+			 winData = Assets.getBitmapData("img/cards/player1.jpg");
+			 winMap = new Bitmap( winData );
+		}
+		else if (player2.points == 5) {
+			playerWin = true;
+			 winData = Assets.getBitmapData("img/cards/player2.jpg");
+			 winMap = new Bitmap( winData );
+		}
 	}
 }

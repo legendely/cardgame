@@ -1,4 +1,4 @@
-package;
+package src;
 
 import src.Card;
 import openfl.events.MouseEvent;
@@ -37,8 +37,21 @@ class CardControler{
 		}
 	}
 	
-	public function clickedSomewhere(e:MouseEvent):Void {
-		
+	public function setAllCardsFalse(cardArray1:Array<Card>, cardArray2:Array<Card>){
+		for (i in 0...cardArray1.length){
+			cardArray1[i].active = false;
+			cardArray2[i].active = false;
+		}
 	}
 	
+	public function displayReset(cardArray1:Array<Card>, cardArray2:Array<Card>){
+			for (i in 0...cardArray1.length){
+			cardArray1[i].displayCard();
+			cardArray2[i].displayCard();
+		}	
+	}
+	
+	public function cardClicked(e:MouseEvent):Void {
+		amountOfClicks++;
+	}
 }

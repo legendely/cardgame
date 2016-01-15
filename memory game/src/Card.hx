@@ -5,10 +5,8 @@ import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
-/**
- * ...
- * @author Marcel Stoepker
- */
+
+
 class Card extends Sprite {
 	// vars
 	public var value:Int;
@@ -19,7 +17,8 @@ class Card extends Sprite {
 		super();
 		value = v;
 		imageName = iname; 
-		this.addEventListener( "click", makeActionTrue);
+		//this.addEventListener( "click", makeActionTrue);
+
 	}
 
 	public function makeActionTrue(e:MouseEvent):Void {

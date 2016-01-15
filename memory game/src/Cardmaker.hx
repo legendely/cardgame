@@ -1,4 +1,4 @@
-package;
+package src;
 
 import openfl.Assets;
 import openfl.events.MouseEvent;
@@ -28,12 +28,9 @@ class Cardmaker {
 			// +1 is because of the card names start with 1 and not 0.
 			arrayX[i] = i * 100 + 100;
 		}
-		
-		
-		arrayX = fisherYatesShuffle(arrayX);
-		
+	
 		//makes new cards and cords, puts them in an Array
-		
+		arrayX = fisherYatesShuffle(arrayX);
 		for (i in 0...10) {
 				card1 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg");
 				card1.displayCard();
@@ -48,8 +45,7 @@ class Cardmaker {
 				card2.x = arrayX[i];
 				card2.y = 150;
 				arrayCards2[i] = card2;
-		}	
-				
+		}			
 	}
 
 	
