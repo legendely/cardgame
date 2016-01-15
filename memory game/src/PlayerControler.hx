@@ -53,6 +53,16 @@ class PlayerControler{
 		return playerArray[tempvar];
 	}
 	
+	public function setTurnPlayer1(){
+		player1.hisTurn = true;
+		player2.hisTurn = false;
+	}
+	
+	public function setTurnPlayer2(){
+		player2.hisTurn = true;
+		player1.
+	}
+	
 	public function checkPlayerWin(){
 		if (player1.points == 5) {
 			playerWin = true;
