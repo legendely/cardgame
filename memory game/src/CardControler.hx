@@ -11,12 +11,13 @@ class CardControler{
 	
 	public function compareCards(cardArray1:Array<Card>, cardArray2:Array<Card>) {
 		for (i in 0...cardArray1.length){
-			for (p in 0...cardArray2.length){
-				if (cardArray1[i].value == cardArray2[p].value && cardArray1[i].active == true && cardArray2[p].active == true){
-					sameCards = true; 
-				}else{
-					sameCards = false;
-				}
+			for (p in 0...cardArray2.length) {
+			
+					if (cardArray1[i].value == cardArray2[p].value && cardArray1[i].active == true && cardArray2[p].active == true){
+						sameCards = true; 
+					}else{
+						sameCards = false;
+					}
 			}
 		}
 	}

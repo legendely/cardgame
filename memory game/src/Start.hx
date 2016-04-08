@@ -33,6 +33,31 @@ class Start extends Sprite{
 		this.addEventListener("click", countClicks);
 	}
 	
+	public function start(e:MouseEvent):Void{
+		// setting start true and deletes the button
+		deleteStartButton();
+		startCards();
+		playerTurnDisplay();
+		playerControler.player1.hisTurn = true;
+	}
+
+	public function countClicks(e:MouseEvent):Void {
+		playerTurnDisplay();
+		cardControler.displayReset(cardArray1, cardArray2);
+		if (clickCount == 0) {
+			card1 = e.target;
+		}else if (clickCount == 1){
+			card2 = e.target;
+		}
+
+		clickCount++;
+		if (clickCount == 2) {
+			clickCount = 0;
+			afterCardsClicked();
+		}
+	}
+	
+	
 	//** start button section **
 	public function createStartButton() {
 		// adds the picture to this object
@@ -58,18 +83,10 @@ class Start extends Sprite{
 		for (i in 0...cardArray1.length) {
 			this.addChild(cardArray1[i]);
 			this.addChild(cardArray2[i]);
-		}
-		
+		}	
 	}
 	
-	public function start(e:MouseEvent):Void{
-		// setting start true and deletes the button
-		deleteStartButton();
-		startCards();
-		playerTurnDisplay();
-		playerControler.player1.hisTurn = true;
-	}
-
+	
 	public function cardChecker() {
 		// gets the values of the place in the array which cards have to be deleted
 		// for function cardDeleter().
@@ -92,7 +109,9 @@ class Start extends Sprite{
 	
 	public function afterCardsClicked(){
 		compareCards();
-		if (sameCard == true){
+		if (sameCard == true ) {	
+
+			//Sys.sleep(1);
 			this.removeChild(card1);
 			this.removeChild(card2);
 			
@@ -124,28 +143,18 @@ class Start extends Sprite{
 		Sys.println("player1 wins!");
 		this.addChild(playerControler.winMap);
 	}
-
-	public function countClicks(e:MouseEvent):Void {
-		playerTurnDisplay();
-		cardControler.displayReset(cardArray1, cardArray2);
-		if (clickCount == 0) {
-			card1 = e.target;
-		}else if (clickCount == 1){
-			card2 = e.target;
-		}
-
-		clickCount++;
-		if (clickCount == 2) {
-			clickCount = 0;
-			afterCardsClicked();
-		}
-	}
 	
-	public function compareCards(){
-		if (card1.value == card2.value){
-			sameCard = true;
-		}else{
+	public function compareCards() {
+		// check if the same card is checked
+		if(card1 == card2){
 			sameCard = false;
+			clickCount = 0;
+		} else {
+			if (card1.value == card2.value){
+				sameCard = true;
+			}else{
+				sameCard = false;
+			}
 		}
 	}
 	
@@ -154,16 +163,16 @@ class Start extends Sprite{
 				turnDisplayData = Assets.getBitmapData( "img/cards/player1turn.jpg" );
 				turnDisplayMap= new Bitmap( turnDisplayData );
 				turnDisplay.addChild(turnDisplayMap);
-				turnDisplay.x = 50;
-				turnDisplay.y = 600;
+				turnDisplay.x = 100;
+				turnDisplay.y = 0;
 				addChild(turnDisplay);
 				
 		}else if(playerControler.player2.hisTurn == true){
 				turnDisplayData = Assets.getBitmapData( "img/cards/player2turn.jpg" );
 				turnDisplayMap= new Bitmap( turnDisplayData );
 				turnDisplay.addChild(turnDisplayMap);
-				turnDisplay.x = 50;
-				turnDisplay.y = 600;
+				turnDisplay.x = 100;
+				turnDisplay.y = 0;
 				addChild(turnDisplay);
 		}
 	}

@@ -55,11 +55,13 @@ class PlayerControler{
 	
 	public function checkPlayerWin(){
 		if (player1.points == 5) {
+			//endGame();
 			playerWin = true;
 			 winData = Assets.getBitmapData("img/cards/player1.jpg");
 			 winMap = new Bitmap( winData );
 		}
 		else if (player2.points == 5) {
+			//endGame();
 			playerWin = true;
 			 winData = Assets.getBitmapData("img/cards/player2.jpg");
 			 winMap = new Bitmap( winData );

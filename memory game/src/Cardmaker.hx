@@ -32,7 +32,7 @@ class Cardmaker {
 		//makes new cards and cords, puts them in an Array
 		arrayX = fisherYatesShuffle(arrayX);
 		for (i in 0...10) {
-				card1 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg",i);
+				card1 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg",i+1);
 				card1.displayCard();
 				card1.x = arrayX[i];
 				card1.y = 300;
@@ -40,7 +40,7 @@ class Cardmaker {
 		}
 		arrayX = fisherYatesShuffle(arrayX);
 		for (i in 0...10){
-			card2 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg",i+10);
+			card2 = new Card(i + 1, "img/cards/kaart" + (i+1) + ".jpg",i+11);
 				card2.displayCard();
 				card2.x = arrayX[i];
 				card2.y = 150;

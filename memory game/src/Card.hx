@@ -29,6 +29,7 @@ class Card extends Sprite {
 
 	public function displayCard() {
 		//adds pictures accoring to the state of the object.
+		
 		if (active == true){
 			var cardData:BitmapData = Assets.getBitmapData( imageName );
 			var card:Bitmap = new Bitmap( cardData );
