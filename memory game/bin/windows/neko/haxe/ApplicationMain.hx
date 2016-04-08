@@ -91,7 +91,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "759",
+			build: "761",
 			company: "Marcel Stoepker",
 			file: "memorygame",
 			fps: 60,
